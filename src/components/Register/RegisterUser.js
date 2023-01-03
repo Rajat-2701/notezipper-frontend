@@ -60,7 +60,7 @@ const RegisterUser = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        {/* {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-18rem" }}>Title is required</p>} */}
+        {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-18rem" }}>Name is required</p>}
         <input
           type="text"
           style={{
@@ -77,7 +77,7 @@ const RegisterUser = () => {
         />
         <input
           type="password"
-          name="password"
+        name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           style={{

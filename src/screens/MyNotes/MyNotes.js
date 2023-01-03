@@ -20,8 +20,12 @@ const MyNotes = () => {
     fetchNotes();
   }, []);
   console.log("notes", notes);
+
+  const userName = localStorage.getItem("userInfo");
+  const myName = JSON.parse(userName);
+  console.log(myName);
   return (
-    <MainScreen title="Welcome back Rajat Chugh!">
+    <MainScreen title={myName.name}>
       <Link className="link" onClick={handleModal}>
         <div className="create-button">Create New Note</div>
         <div className="notes">

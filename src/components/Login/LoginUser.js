@@ -1,40 +1,27 @@
+import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+import Visibility from "@material-ui/icons/Visibility";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-bootstrap";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginUser = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [error, setError] = useState(false);
-  const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = { email, password };
-
-    if (!email || !password) {
-      setError(true);
-      return;
-    }
-    const loginUser = localStorage.getItem("user");
-    if (!loginUser) {
-      setError(true);
-      return;
-    }
-    try {
-      axios.post("http://localhost:5000/api/users/login", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      navigate("/mynotes");
-    } catch (error) {
-      console.log(error.response);
-    }
-    setEmail("");
-    setPassword("");
-  };
-
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleSubmit,
+    error,
+    showPassword,
+    setShowPassword,
+    isVisible,
+    errorMessage,
+  } = useAuth();
   return (
     <div className="register-user-main">
       <h2>Login Yourself here</h2>
@@ -48,7 +35,6 @@ const LoginUser = () => {
           marginTop: "2rem",
         }}
       >
-        {/* {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-18rem" }}>Title is required</p>} */}
         <input
           type="text"
           style={{
@@ -63,22 +49,32 @@ const LoginUser = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{
-            width: "400px",
-            marginBottom: "1rem",
-            padding: "10px",
-            border: "1px solid gray",
-            borderRadius: "4px",
-            boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
-          }}
-          placeholder="Enter your password"
-        />
-        {/* {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-15rem" }}>Description is required</p>} */}
+
+        {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-17rem" }}>Email is required</p>}
+        <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{
+              width: "400px",
+              marginBottom: "1rem",
+              padding: "10px",
+              border: "1px solid gray",
+              borderRadius: "4px",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
+            }}
+            placeholder="Enter your password"
+          />
+          <IconButton style={{ position: "absolute", right: "1%", bottom: "45%" }} onClick={isVisible}>
+            {showPassword ? <Visibility style={{ color: "blue" }} /> : <VisibilityOff />}
+          </IconButton>
+
+          {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-15rem" }}>Password is required</p>}
+          <NavLink to="/forgot-password">Forgot Password?</NavLink>
+        </div>
+        {/* <div></div> */}
         <button
           type="submit"
           style={{

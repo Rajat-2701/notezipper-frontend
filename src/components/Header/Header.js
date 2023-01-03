@@ -1,14 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import "./Header.css";
 const Header = () => {
   const [click, setClick] = useState(false);
   const [show, setShow] = useState(false);
+  const [auth, setAuth] = useState("");
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
   const handleShow = () => setShow(!show);
 
-  const auth = localStorage.getItem("user");
+  // getting user info from local-storage:
+  // logging out user by removing from local storage:
+  const handleLogOut = () => {
+    logout();
+  };
+  const { user, logout } = useAuth();
+  console.log(user);
+
   return (
     <div>
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
@@ -20,14 +29,14 @@ const Header = () => {
           </NavLink>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <NavLink to="/" activeClassName="active" className="nav-links" onClick={click ? handleClick : null}>
+              <NavLink to="/" activeclassname="active" className="nav-links" onClick={click ? handleClick : null}>
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 to="/mynotes"
-                activeClassName="active"
+                activeclassname="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
@@ -37,7 +46,7 @@ const Header = () => {
             <li className="nav-item">
               <NavLink
                 to="/register"
-                activeClassName="active"
+                activeclassname="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
@@ -47,14 +56,14 @@ const Header = () => {
             <li className="nav-item">
               <NavLink
                 to="/contact"
-                activeClassName="active"
+                activeclassname="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
                 Contact Us
               </NavLink>
             </li>
-            {auth && (
+            {user && (
               <li className="nav-item dropdown-nav-item" onClick={handleShow}>
                 My Profile
                 {show ? (
@@ -64,13 +73,9 @@ const Header = () => {
                       style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", width: "100%" }}
                     >
                       <i className="fas fa-user profile-icons" style={{ color: "#a2a9b4" }} />
-                      <NavLink
-                        to="/my-profile"
-                        className="nav-links"
-                        style={{ color: "#a2a9b4", marginTop: "0", paddingLeft: "0" }}
-                      >
+                      <div className="nav-links" style={{ color: "#a2a9b4", marginTop: "0", paddingLeft: "0" }}>
                         My Profile
-                      </NavLink>
+                      </div>
                     </li>
                     <li
                       className="nav-item profile-menu"
@@ -96,13 +101,13 @@ const Header = () => {
                         className="fas fa-power-off profile-icons"
                         style={{ color: "#a2a9b4", marginLeft: 27, marginRight: 27 }}
                       />
-                      <NavLink
-                        to="/logout"
+                      <div
+                        onClick={handleLogOut}
                         className="nav-links"
                         style={{ color: "#a2a9b4", marginTop: "0", paddingLeft: "0" }}
                       >
                         Logout
-                      </NavLink>
+                      </div>
                     </li>
                   </ul>
                 ) : null}
