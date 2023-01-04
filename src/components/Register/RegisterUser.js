@@ -1,19 +1,26 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css'
 import { useNavigate } from "react-router-dom";
 
 const RegisterUser = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  // const [value, setValue] = useState()
+
+  console.log("phone", phone);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { name, email, password };
-
-    if (!name || !email || !password) {
+    let p = phone.substring(2, 13);
+    const data = { name, email, phone:p, password };
+    console.log("data", data);
+    if (!name || !email || !phone || !password) {
       setError(true);
       return;
     }
@@ -30,6 +37,8 @@ const RegisterUser = () => {
     }
     setName("");
     setEmail("");
+    setPhone("");
+    setPassword("");
     setPassword("");
   };
 
@@ -60,7 +69,11 @@ const RegisterUser = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-18rem" }}>Name is required</p>}
+        {/* {error && (
+          <p style={{ marginTop: -5, color: "red", marginLeft: "-18rem" }}>
+            Name is required
+          </p>
+        )} */}
         <input
           type="text"
           style={{
@@ -75,9 +88,44 @@ const RegisterUser = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <PhoneInput
+          style={{
+            width: "400px",
+            marginBottom: "1rem",
+            padding: "10px",
+            border: "1px solid gray",
+            borderRadius: "4px",
+            boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
+          }}
+          placeholder="Enter your phone number"
+          country="in"
+          inputProps={{
+            name: "phone",
+            required: true,
+          }}
+          onChange={(e) => setPhone(e)}
+          value={phone}
+          defaultMask="...-...-...."
+          alwaysDefaultMask={true}
+        />
+        {/* <input
+          type="text"
+          value={phone}
+          name="phone"
+          onChange={(e) => handlePhone(e)}
+          style={{
+            width: "400px",
+            marginBottom: "1rem",
+            padding: "10px",
+            border: "1px solid gray",
+            borderRadius: "4px",
+            boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
+          }}
+          placeholder="Enter your phone number"
+        /> */}
         <input
           type="password"
-        name="password"
+          name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           style={{
