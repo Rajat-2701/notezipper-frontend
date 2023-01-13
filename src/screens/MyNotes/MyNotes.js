@@ -28,17 +28,7 @@ const MyNotes = () => {
     <MainScreen title={myName.name}>
       <Link className="link" onClick={handleModal}>
         <div className="create-button">Create New Note</div>
-        <div className="notes">
-          {notes &&
-            notes.map((note) => {
-              return (
-                <div className="notes-details">
-                  <h2>{note.title}</h2>
-                  <p>{note.content}</p>
-                </div>
-              );
-            })}
-        </div>
+        
       </Link>
       {!openModal ? "" : <CreateNote openModal={handleModal} />}
     </MainScreen>

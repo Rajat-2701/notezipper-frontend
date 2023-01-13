@@ -129,11 +129,11 @@ body {
 .profile-menu:hover .profile-icons {
   color: #fff !important;
 }
-.nav-links.active {
+/* .nav-links.active {
   padding: 10px 20px;
   color: #ffdd40;
   border: 1px solid #ffdd40;
-}
+} */
 .nav-icon {
   display: none;
 }

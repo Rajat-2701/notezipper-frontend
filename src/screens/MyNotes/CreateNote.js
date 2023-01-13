@@ -1,16 +1,48 @@
+import axios from "axios";
 import React, { useState } from "react";
 import Modal from "react-modal";
 const CreateNote = ({ openModal }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [images, setImages] = useState([]);
   const [error, setError] = useState(false);
+
+  const handleImagesUploads = (e) => {
+    const targetFiles = e.target.files;
+    // const targetFilesObject = [...targetFiles];
+    // targetFilesObject.map((file) => {
+    //   return selectedFIles.push(file);
+    // });
+    setImages(targetFiles);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !description) {
+    if (!title || !description || !category || !brand || !price || !images) {
       setError(true);
     } else {
-      const data = { title, description };
-      console.log("data", data);
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("category", category);
+      formData.append("brand", brand);
+      formData.append("price", price);
+      for (const key of Object.keys(images)) {
+        formData.append("images", images[key]);
+      }
+      axios.post("http://localhost:5000/api/products/add-product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setTitle("");
+      setDescription("");
+      setBrand("");
+      setCategory("");
+      setImages("");
+      setPrice("");
     }
   };
   const customStyles = {
@@ -38,12 +70,25 @@ const CreateNote = ({ openModal }) => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2 style={{ fontSize: "34px", textTransform: "uppercase", marginBottom: "1rem", fontWeight: "bold" }}>
+        <h2
+          style={{
+            fontSize: "34px",
+            textTransform: "uppercase",
+            marginBottom: "1rem",
+            fontWeight: "bold",
+          }}
+        >
           Create Note
         </h2>
         <i
           className="fas fa-times"
-          style={{ cursor: "pointer", fontSize: "30px", position: "absolute", top: 20, right: 20 }}
+          style={{
+            cursor: "pointer",
+            fontSize: "30px",
+            position: "absolute",
+            top: 20,
+            right: 20,
+          }}
           onClick={openModal}
         ></i>
 
@@ -71,7 +116,11 @@ const CreateNote = ({ openModal }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-18rem" }}>Title is required</p>}
+          {error && (
+            <p style={{ marginTop: -5, color: "red", marginLeft: "-18rem" }}>
+              Title is required
+            </p>
+          )}
           <input
             type="text"
             style={{
@@ -86,7 +135,90 @@ const CreateNote = ({ openModal }) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          {error && <p style={{ marginTop: -5, color: "red", marginLeft: "-15rem" }}>Description is required</p>}
+          {error && (
+            <p style={{ marginTop: -5, color: "red", marginLeft: "-15rem" }}>
+              Description is required
+            </p>
+          )}
+          <input
+            type="text"
+            style={{
+              width: "400px",
+              marginBottom: "1rem",
+              padding: "10px",
+              border: "1px solid gray",
+              borderRadius: "4px",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
+            }}
+            placeholder="Enter the brand"
+            name="brand"
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+          />
+          {error && (
+            <p style={{ marginTop: -5, color: "red", marginLeft: "-15rem" }}>
+              Brand Name is required
+            </p>
+          )}
+          <input
+            type="text"
+            style={{
+              width: "400px",
+              marginBottom: "1rem",
+              padding: "10px",
+              border: "1px solid gray",
+              borderRadius: "4px",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
+            }}
+            placeholder="Enter the category"
+            name="brand"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
+          {error && (
+            <p style={{ marginTop: -5, color: "red", marginLeft: "-15rem" }}>
+              Category is required
+            </p>
+          )}
+          <input
+            type="file"
+            style={{
+              width: "400px",
+              marginBottom: "1rem",
+              padding: "10px",
+              border: "1px solid gray",
+              borderRadius: "4px",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
+            }}
+            name="images"
+            onChange={(e) => handleImagesUploads(e)}
+            multiple
+          />
+          {error && (
+            <p style={{ marginTop: -5, color: "red", marginLeft: "-15rem" }}>
+              Images are required
+            </p>
+          )}
+          <input
+            type="text"
+            style={{
+              width: "400px",
+              marginBottom: "1rem",
+              padding: "10px",
+              border: "1px solid gray",
+              borderRadius: "4px",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
+            }}
+            placeholder="Enter the brand"
+            name="brand"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+          {error && (
+            <p style={{ marginTop: -5, color: "red", marginLeft: "-15rem" }}>
+              price is required
+            </p>
+          )}
           <button
             tabIndex={1}
             aria-expanded="true"

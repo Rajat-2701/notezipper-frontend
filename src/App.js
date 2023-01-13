@@ -12,25 +12,34 @@ import LandingPage from "./screens/LandingPage/LandingPage";
 import MyNotes from "./screens/MyNotes/MyNotes";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import FormModal from "./components/Modal/FormModal";
+import { useState } from "react";
+import { ModalProvider } from "./context/ModalContext";
+import MyProfile from "./components/My-Profile/MyProfile";
 
 function App() {
+  const [open, setOpen] = useState(false);
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Header />
-        <ToastContainer theme="dark" style={{ marginTop: 100 }} />
-        <Routes>
-          <Route element={<PrivateComponent />}>
-            <Route exact path="/" element={<LandingPage />} />
-            <Route exact path="/mynotes" element={<MyNotes />} />
-            <Route exact path="/contact" element={<Contact />} />
-          </Route>
-          <Route exact path="/register" element={<RegisterUser />} />
-          <Route exact path="/login" element={<LoginUser />} />
-          <Route exact path="/forgot-password" element={<ForgotPassword />} />
-        </Routes>
-        <Footer />
-      </AuthProvider>
+      <ModalProvider>
+        <AuthProvider>
+          <Header />
+          <FormModal open={!open} setOpen={setOpen} />
+          <ToastContainer theme="dark" style={{ marginTop: 100 }} />
+          <Routes>
+            <Route element={<PrivateComponent />}>
+              <Route exact path="/" element={<LandingPage />} />
+              <Route exact path="/mynotes" element={<MyNotes />} />
+              <Route exact path="/contact" element={<Contact />} />
+            </Route>
+            <Route exact path="/my-profile" element={<MyProfile />} />
+            <Route exact path="/register" element={<FormModal />} />
+            {/* <Route exact path="/login" element={<LoginUser />} /> */}
+            <Route exact path="/forgot-password" element={<ForgotPassword />} />
+          </Routes>
+          <Footer />
+        </AuthProvider>
+      </ModalProvider>
     </BrowserRouter>
   );
 }

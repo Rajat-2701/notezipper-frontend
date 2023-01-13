@@ -9,15 +9,169 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-.react-tel-input .form-control{
+
+.react-tel-input .form-control {
   border: none !important;
   font-size: 16px !important;
 }
-.react-tel-input .form-control:focus{
+
+.react-tel-input .form-control:focus {
   border: none !important;
   box-shadow: none !important;
 }
-.react-tel-input .flag-dropdown{
+
+.react-tel-input .flag-dropdown {
   border: none !important;
   background-color: transparent !important;
+}
+
+.react-tel-input {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  display: flex;
+  align-items: center;
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+  z-index: 100;
+  background-color: rgba(0, 0, 0, .6) !important;
+}
+
+.modal-button {
+  transition: all 0.3s ease-in-out;
+}
+#login{
+  background-color: rgb(76, 187, 23);
+  transition: all 0.3s ease-in-out;
+}
+#login:hover{
+  background-color: rgba(76, 187, 23, 0.5) !important;
+}
+
+.modal-button:hover {
+  background-color: rgba(178, 34, 34, 0.5) !important;
+}
+
+@media(max-width:768px) {
+  .ReactModal__Content.ReactModal__Content--after-open {
+    padding: 0px !important;
+  }
+
+  .modal-form input {
+    width: 370px !important;
+  }
+
+  .modal-form {
+    padding-left: 0 !important;
+  }
+
+  .react-tel-input {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    width: 370px !important;
+  }
+}
+
+@media(max-width:640px) {
+  .ReactModal__Content.ReactModal__Content--after-open {
+    flex-direction: column !important;
+    padding: 0 !important;
+    width: auto !important;
+  }
+
+  .login-modal-bg {
+    background-image: none !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .modal-form {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  #close-icon{
+    color: white !important;
+  }
+}
+
+@media(max-width:425px) {
+  .ReactModal__Content.ReactModal__Content--after-open {
+    width: 400px !important;
+  }
+
+  .login-modal-bg {
+    padding-left: 25px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .register-route p {
+    text-align: center;
+    width: 100%;
+    min-width: 422px !important;
+  }
+
+  .login-modal-bg h2 {
+    font-size: 20px !important;
+    line-height: 40px;
+  }
+
+  .login-modal-bg p {
+    margin-bottom: 2rem;
+    margin-top: 0px !important;
+    font-size: 15px !important;
+    padding-right: 0px !important;
+  }
+
+  .modal-form {
+    padding: 50px !important;
+    padding-top: 20px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .react-tel-input {
+    width: 350px !important;
+    display: flex;
+    align-items: center;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .modal-button {
+    width: 350px !important;
+  }
+
+  .modal-form input {
+    width: 350px !important;
+  }
+  
+}
+
+@media(max-width:375px) {
+  .ReactModal__Content.ReactModal__Content--after-open {
+    width: 355px !important;
+    padding: 0px !important;
+  }
+
+  .modal-form input {
+    width: 330px !important;
+  }
+
+  .react-tel-input {
+    width: 330px !important;
+  }
+
+  .modal-button {
+    width: 330px !important;
+  }
+}
+
+/* update form css */
+button.update-button{
+  transition: all 0.3s ease-in-out;
+}
+button.update-button:hover{
+  background-color: rgb(50, 205, 50,0.7)!important;
+  border: 1px solid rgb(50, 205, 50,0.7) !important;
 }
