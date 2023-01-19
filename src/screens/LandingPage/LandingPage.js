@@ -12,7 +12,7 @@ const LandingPage = () => {
               <h1 className="title">Welcome to Note Zipper</h1>
               <p className="subtitle">One Safe place for all your notes.</p>
             </div>
-            <div className="buttonContainer">
+            {/* <div className="buttonContainer">
               <Link to="/login">
                 <Button size="lg" className="landingbutton">
                   Login
@@ -23,7 +23,7 @@ const LandingPage = () => {
                   Signup
                 </Button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </Row>
       </Container>

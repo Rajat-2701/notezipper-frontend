@@ -21,6 +21,7 @@ const MyProfile = () => {
     const data = { name, email, password, confirmPass, phone };
   };
   const details = user?.data[0];
+  console.log("object", details);
   return (
     <div className="my-profile-main" style={{ padding: 100, paddingLeft: 180 }}>
       <div className="my-profile-inner">
@@ -40,7 +41,7 @@ const MyProfile = () => {
             }}
           >
             <img
-              src={details?.pic && details?.pic}
+              src={details?.pic && details?.pic[0]?.url}
               style={{
                 width: "250px",
                 height: "250px",

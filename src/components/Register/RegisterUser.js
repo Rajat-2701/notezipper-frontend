@@ -30,7 +30,7 @@ const RegisterUser = () => {
           "Content-Type": "application/json",
         },
       });
-      navigate("/login");
+      navigate("/verify-email");
       localStorage.setItem("user", JSON.stringify(data));
     } catch (error) {
       console.log(error.response);

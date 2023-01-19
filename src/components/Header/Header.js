@@ -24,7 +24,6 @@ const Header = () => {
     logout();
   };
   const handleUser = (e) => {
-    e.preventDefault();
     if (user?.data[0]?.role !== "admin") {
       toast.error("Only admin can access this page", {
         position: "top-right",
@@ -36,7 +35,6 @@ const Header = () => {
     }
   };
   const { user, logout } = useAuth();
-
   return (
     <div>
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
@@ -54,7 +52,7 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                to={user?.data[0]?.role === "admin" ? "/mynotes" : null}
+                to={user?.data[0].role == "admin" ? "/mynotes" : null}
                 className="nav-links"
                 onClick={() => handleUser()}
               >

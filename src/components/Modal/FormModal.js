@@ -1,36 +1,37 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import Modal from 'react-modal'
-import PhoneInput from 'react-phone-input-2';
-import { useNavigate } from 'react-router-dom';
-import ReactFlagsSelect from "react-flags-select";
-import Countries from '../Countries/Countries';
-import LoginFormModal from './LoginFormModal';
-import { useModalContext } from '../../context/ModalContext';
-import { toast } from 'react-toastify';
-import { useAuth } from '../../context/AuthContext';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
+import PhoneInput from "react-phone-input-2";
+import { useNavigate } from "react-router-dom";
+// import ReactFlagsSelect from "react-flags-select";
+import Countries from "../Countries/Countries";
+import LoginFormModal from "./LoginFormModal";
+import { useModalContext } from "../../context/ModalContext";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 const FormModal = () => {
   // state for modal open
-  const {  
+  const {
     isLoginModal,
     isRegisterModal,
     ToogleLoginModal,
-    ToogleRegisterModal } = useModalContext();
+    ToogleRegisterModal,
+  } = useModalContext();
 
-    const {
-      name,
-      email,
-      password,
-      phone,
-      loginForm,
-      setLoginForm,
-      handleRegister,
-      setName,
-      setEmail,
-      setPhone,
-      setPassword,
-    } = useAuth();
-  
+  const {
+    name,
+    email,
+    password,
+    phone,
+    loginForm,
+    setLoginForm,
+    handleRegister,
+    setName,
+    setEmail,
+    setPhone,
+    setPassword,
+    handleImage,
+  } = useAuth();
 
   const customStyles = {
     content: {
@@ -163,6 +164,19 @@ const FormModal = () => {
             alwaysDefaultMask={true}
           />
           <input
+            type="file"
+            style={{
+              width: "350px",
+              marginBottom: "1rem",
+              padding: "10px",
+              border: "1px solid gray",
+              borderRadius: "4px",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 15px 0px",
+            }}
+            name="pic"
+            onChange={handleImage}
+          />
+          <input
             type="password"
             name="password"
             value={password}
@@ -193,7 +207,6 @@ const FormModal = () => {
               borderRadius: "5px",
             }}
             className="modal-button"
-            onClick={() => setLoginForm(!loginForm)}
           >
             Sign Up
           </button>
@@ -232,4 +245,4 @@ const FormModal = () => {
   );
 };
 
-export default FormModal
+export default FormModal;
